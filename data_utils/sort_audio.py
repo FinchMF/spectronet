@@ -180,7 +180,7 @@ def fft_blocks_to_time_blocks(blocks_ft_domain):
     return time_blocks
 
 
-def convert_wav_t0_nptensor(directory, block_size, max_seq_len, out_file, max_files=20, useTimeDomain = False):
+def convert_wav_to_nptensor(directory, block_size, max_seq_len, out_file, max_files=20, useTimeDomain = False):
 
     files = []
 
