@@ -1,5 +1,7 @@
 import os
 import scipy.io.wavfile as wav 
+import librosa
+import soundfile
 import numpy as np
 from pipes import quote
 
@@ -103,7 +105,13 @@ def convert_folder_to_wav(directory: str, sample_rate: int = 44100) -> str:
 
 def read_wav_as_np(fname: str) -> (List[float], int):
 
-    data = wav.read(fname)
+    try:
+        data = wav.read(fname)
+    except:
+        y, sr = librosa.load(fname)
+        soundfile.write(fname, y, sr)
+        data = wav.read(fname)
+
     np_arr = np.array(data[1].astype('float32') / 32767.0)
     
     return np_arr, data[0]
@@ -162,7 +170,6 @@ def fft_blocks_to_time_blocks(blocks_ft_domain):
     for block in blocks_ft_domain:
 
         num_elems = int(block.shape[0] / 2)
-        print(num_elems)
         real_chunk = block[0:num_elems]
         imag_chunk = block[num_elems:]
         n_block = real_chunk + 1.0 * imag_chunk

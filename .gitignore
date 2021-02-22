@@ -129,5 +129,7 @@ dmypy.json
 .pyre/
 
 # workbench
-
 workbench.ipynb
+
+# test audio
+test_audio/*
